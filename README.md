@@ -1,5 +1,5 @@
 # CarFinance - Front-End
-#### Note: Front-End can be found in: https://github.com/jeanniehe236/CarFinance-BackEnd.git
+Note: The back-end application can be found in: https://github.com/jeanniehe236/CarFinance-BackEnd.git
 # Instructions for running the front-end application
 Write the following commands in the project folder: npm install > npm start
 Open a browser and go to: [http://localhost:3000](http://localhost:3000)
