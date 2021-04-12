@@ -101,7 +101,7 @@ class HomeScreen extends React.Component{
                 checked = {placeholder === item}
                 onChange={setter}
 
-            /> {item.replaceAll('_','')} </label>)}
+            /> {item.replaceAll('_',' ')} </label>)}
             </div>
     }
 
