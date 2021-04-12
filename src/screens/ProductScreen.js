@@ -84,9 +84,8 @@ class ProductScreen extends React.Component{
             <li> Loan Term: {this.state.term} years </li>
             
             <li> Interest Rate: {this.formatInterestRate(Number.parseFloat(item.interestRate))} % </li>
-            <ul> 
-               <li> Base Interest Rate {this.formatInterestRate(Number.parseFloat(item.baseInterestRate))} % </li>
-               {this.getInterestAdjustment(item.baseInterestRate, item.interestRate)}
+            <ul>
+                {this.getInterestAdjustment(item.baseInterestRate, item.interestRate)}
             </ul>
             </ul>
             </button>

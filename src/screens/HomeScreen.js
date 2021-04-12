@@ -35,9 +35,9 @@ class HomeScreen extends React.Component{
                 channel: this.checkPreviousAnswer(this.state.channel, data.channels),
                 carType: this.checkPreviousAnswer(this.state.carType, data.carTypes),
                 fuelType: this.checkPreviousAnswer(this.state.fuelType, data.fuelTypes),
-                totCost: this.checkPreviousAnswer(parseInt(this.state.totCost), []),
-                downPayment: this.checkPreviousAnswer(parseInt(this.state.downPayment), []),
-                term:this.checkPreviousAnswer(parseInt(this.state.term), []),
+                totCost: this.checkPreviousAnswer(parseInt(this.state.totCost), [""]),
+                downPayment: this.checkPreviousAnswer(parseInt(this.state.downPayment), [""]),
+                term:this.checkPreviousAnswer(parseInt(this.state.term), [""]),
             })
         });
     }
@@ -106,24 +106,31 @@ class HomeScreen extends React.Component{
     }
 
     /**
-     * Creates and returns a HTML code for a number entry
+     * Creates and returns a HTML code for a currency entry
      * @param header: the field name
      * @param placeholder: a placeholder to store the selected option.
      * @param setter: a call back function to store the selected option as a state value
-     * @param unit: the unit of the field.
-     * @returns a div with a number entry.
+     * @param unit: the field value unit.
+     * @returns a div with a currency entry.
      */
     getNumberEntry = (header, placeholder, setter, unit) => {
         return <div><span className = "header"> {header}: </span>
-        <NumberFormat format="### ###"
-        type ="text" name = {header}
-        value={parseInt(placeholder, 10)}
+        <input type ="text" name = {header}
+        value={this.checkNumberInput(placeholder)}
         onChange={
-            (event) =>{
-            var value = parseInt(event.target.value.replaceAll(/[^0-9]/g, ""),0);
-            setter(isNaN(value)? "0":value)}}
-        /> <label>{unit}</label>
+            (event) =>{ 
+                if (this.checkNumberInput(event.target.value) != null) 
+                setter(event.target.value)}
+        }
+        /> <label> {unit}</label>
         </div>
+    }
+
+    checkNumberInput = (value) => {
+        if (isUndefined(value)) return "";
+        value = value.toString().replace(/[^0-9]/g, "");
+        if (parseInt(value) > 2147483647) return null;
+        else return value;
     }
     
     /**
@@ -144,6 +151,7 @@ class HomeScreen extends React.Component{
                 {this.getNumberEntry("Car Price", this.state.totCost, (value) => {this.setState({totCost: value});}, "kr")}
                 {this.getNumberEntry("Down Payment", this.state.downPayment, (value) => this.setState({downPayment: value}), "kr")}
                 {this.getNumberEntry("Loan Term", this.state.term, (value) => this.setState({term: value}), "years")}
+                
             </form>
             <button className = "card" onClick={this.handleSubmit.bind(this)}>Submit</button>
            
